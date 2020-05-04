@@ -3,8 +3,8 @@ const mongoose = require("mongoose");
 const connectBD = require("./config/db");
 const app = express();
 
-// JSON PARSER
-app.use(express.json());
+// BODY PARSER
+app.use(express.json({ extended: false }));
 
 // DATABASE CONNECTION
 connectBD();

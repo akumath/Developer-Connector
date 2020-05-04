@@ -1,3 +1,4 @@
 {
-  "mongoURI": "mongodb+srv://akumath:kumatharpan14@dbconnector-7bdyu.mongodb.net/test?retryWrites=true&w=majority"
+  "mongoURI": "mongodb+srv://akumath:kumatharpan14@dbconnector-7bdyu.mongodb.net/test?retryWrites=true&w=majority",
+  "jwtSecret": "myjwtsecret"
 }

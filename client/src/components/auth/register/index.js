@@ -1,12 +1,12 @@
 import React, { Fragment, useState } from "react";
 import { connect } from "react-redux";
-import { Link } from "react-router-dom";
+import { Link, Redirect } from "react-router-dom";
 import PropTypes from "prop-types";
 import { dispatchSetAlert } from "../../../actions/alert";
 import { dispatchRegister } from "../../../actions/auth";
 
 const Register = (props) => {
-  const { dispatchSetAlert, dispatchRegister } = props;
+  const { dispatchSetAlert, dispatchRegister, isAuthenticated } = props;
 
   const [formData, setFormData] = useState({
     name: "",
@@ -34,6 +34,12 @@ const Register = (props) => {
       dispatchRegister({ name, email, password });
     }
   };
+
+  // REDIRECT IF LOGGED IN
+  if (isAuthenticated) {
+    return <Redirect to="/dashboard" />;
+  }
+
   return (
     <Fragment>
       <h1 className="large text-primary">Sign Up</h1>
@@ -93,6 +99,13 @@ const Register = (props) => {
 Register.propTypes = {
   dispatchSetAlert: PropTypes.func.isRequired,
   dispatchRegister: PropTypes.func.isRequired,
+  isAuthenticated: PropTypes.bool,
+};
+
+const mapStateToProps = (state) => {
+  return {
+    isAuthenticated: state.auth.isAuthenticated,
+  };
 };
 
 const mapDispatchToProps = (dispatch) => {
@@ -102,4 +115,4 @@ const mapDispatchToProps = (dispatch) => {
       dispatch(dispatchRegister({ name, email, password })),
   };
 };
-export default connect(null, mapDispatchToProps)(Register);
+export default connect(mapStateToProps, mapDispatchToProps)(Register);
